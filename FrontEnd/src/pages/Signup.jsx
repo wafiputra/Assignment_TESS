@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Signup() {
+    const [fName, setFname]= useState('')
+    const [lName, setLname]= useState('')
     const [email, setEmail]= useState('')
     const [password, setPassword]= useState('')
     const [rPassword, setRpassword]= useState('')
@@ -17,6 +20,40 @@ function Signup() {
 					onSubmit={handleSubmit}
 				>
 					<h5 className="text-xl font-medium text-gray-900">Sign up Page</h5>
+					<div>
+						<label
+							htmlFor="fName"
+							className="block mb-2 text-sm font-medium text-gray-900"
+						>
+							First Name
+						</label>
+						<input
+							type="text"
+							name="fName"
+							id="fName"
+							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+							placeholder="Your First Name"
+							required
+							onChange={(e) => setFname(e.target.value)}
+						/>
+					</div>
+					<div>
+						<label
+							htmlFor="lName"
+							className="block mb-2 text-sm font-medium text-gray-900"
+						>
+							Last Name
+						</label>
+						<input
+							type="text"
+							name="lName"
+							id="lName"
+							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+							placeholder="Your Last Name"
+							required
+							onChange={(e) => setLname(e.target.value)}
+						/>
+					</div>
 					<div>
 						<label
 							htmlFor="email"
@@ -75,13 +112,13 @@ function Signup() {
 						Create account
 					</button>
 					<div className="text-sm font-medium text-gray-500">
-						Not registered?{' '}
-						<a
-							href="#"
+						Have Account?{' '}
+						<Link
+							to="/"
 							className="text-blue-700 hover:underline"
 						>
-							Create account
-						</a>
+							Sign in
+						</Link>
 					</div>
 				</form>
 			</div>

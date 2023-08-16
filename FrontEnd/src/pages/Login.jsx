@@ -1,13 +1,32 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Validation from '../LoginValidation';
 
 function Login() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+	const [values, setValues] = useState({
+		email : '',
+		password : ''
+	})
+	const [errors, setErrors] = useState({})
+	const handleInput = (event) => {
+		setValues(prev => ({...prev, [event.target.name] : [event.target.values]}))
+	}
+	const handleSubmit = (event) =>{
+		event.preventDefault();
+		setErrors(Validation(values));
+	}
 
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
+    // function handleSubmit(event) {
+    //     event.preventDefault();
+	// 	if (email === "test@mail.com" && password === "12345") {
+	// 		console.log('Login Success')
+	// 	}else{
+	// 		console.log('Login Failed')
+	// 	}
+    // }
 	return (
 		<div className='flex justify-center items-center h-screen'>
 			<div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
@@ -32,8 +51,9 @@ function Login() {
 							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							placeholder="name@company.com"
 							required
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={handleInput}
 						/>
+						{errors.email && <span className='text-red-500'>{errors.email}</span> }
 					</div>
 					<div>
 						<label
@@ -49,9 +69,9 @@ function Login() {
 							placeholder="••••••••"
 							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							required
-                            onChange={e => setPassword(e.target.value)}
-
-						/>
+                            onChange={handleInput}
+							/>
+							{errors.password && <span className='text-red-500'>{errors.password}</span> }
 					</div>
 					<button
 						type="submit"
@@ -61,12 +81,9 @@ function Login() {
 					</button>
 					<div className="text-sm font-medium text-gray-500">
 						Not registered?{' '}
-						<a
-							href="#"
-							className="text-blue-700 hover:underline"
-						>
-							Create account
-						</a>
+						<Link to="/signup" className="text-blue-700 hover:underline">
+						Create account
+						</Link>
 					</div>
 				</form>
 			</div>
